@@ -1,0 +1,34 @@
+:root {
+  --bg: #ffffff; --fg: #1a1a1a; --muted: #666; --border: #d4d4d8; --panel: #f6f6f8;
+  --accent: #2456d6; --accent-fg: #fff; --danger: #b42318;
+  --s-pending: #6b7280; --s-processing: #2456d6; --s-succeeded: #15803d; --s-failed: #b45309; --s-dead: #b42318;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111114; --fg: #ececef; --muted: #9a9aa5; --border: #34343c; --panel: #1b1b20;
+    --accent: #6b93ff; --accent-fg: #0b0b0d; --danger: #ff7a70;
+    --s-pending: #9ca3af; --s-processing: #6b93ff; --s-succeeded: #4ade80; --s-failed: #fbbf24; --s-dead: #ff7a70;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, sans-serif; }
+main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+nav { display: flex; gap: 16px; margin-bottom: 16px; }
+a { color: var(--accent); }
+h1 { font-size: 1.4rem; margin: 0 0 16px; }
+form { display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 24px; }
+label { display: grid; gap: 4px; font-size: .85rem; color: var(--muted); }
+input { padding: 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel); color: var(--fg); font: inherit; }
+button { padding: 8px 14px; border: 0; border-radius: 6px; background: var(--accent); color: var(--accent-fg); font: inherit; cursor: pointer; align-self: end; }
+button:disabled { opacity: .5; cursor: default; }
+table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+code, pre { font-family: ui-monospace, monospace; font-size: .8rem; }
+pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.badge { font-weight: 600; }
+.badge.pending { color: var(--s-pending); } .badge.processing { color: var(--s-processing); }
+.badge.succeeded { color: var(--s-succeeded); } .badge.failed { color: var(--s-failed); } .badge.dead { color: var(--s-dead); }
+.error { color: var(--danger); }
+.muted { color: var(--muted); }
+.table-wrap { overflow-x: auto; }

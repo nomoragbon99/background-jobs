@@ -71,11 +71,48 @@ The sibling's solution (node:https instead of fetch) is reused, but the worker i
 it from `src/`. **Rejected:** copying the .mjs file and writing a type declaration for it (two files
 for one client).
 
-## 13. Failure-injection rate is a config value, not an environment variable
+## 13. Config overrides come in through one generic env var, JOBS_CONFIG_OVERRIDE
 
-The brief puts every tunable number in `src/config.ts`. **Rejected:** an env override, which would be a
-second place for the same number.
+The numbers still live in `src/config.ts`. The env var (JSON, for example `{"worker":{"concurrency":5}}`) can
+only replace numeric values that already exist there, and unknown keys are ignored. It exists so each demo
+script can start workers with different settings (failure rate 1.0, short stuck timeout) from the terminal.
+This replaces my first choice of no env override at all. **Rejected:** per-setting env variables (a second home
+for every number) and having the demos edit `src/config.ts` (a script that rewrites source).
 
 ## 14. Dashboard polls with `setInterval` and plain `fetch`
 
 **Rejected:** server-sent events or websockets, which add a connection lifecycle for a status page.
+
+## 15. Simulated slow-work mode (`worker.simulatedWorkMs`)
+
+When above 0 the work sleeps that long and writes a synthetic report instead of calling the live API. Used by
+the concurrency, stuck-job, two-workers and double-run demos (the README says which). **Rejected:** real API
+calls for 50-job tests, because the live API has a rate limit that would turn a concurrency test into a 429 test.
+
+## 16. Demos own only rows whose idempotencyKey starts with "demo-"
+
+Each demo deletes those rows when it starts and refuses to run if real non-demo jobs are pending, failed or
+processing. **Rejected:** truncating the table, which would destroy real data.
+
+## 17. The concurrency slot is reserved before the claim query
+
+See BUILD_LOG.md entry 6. **Rejected:** a mutex around fill(), which serialises claiming for no benefit, and
+re-checking the count after the claim, which would claim a job and then have to give it back.
+
+## 18. demo:all-statuses writes rows directly
+
+Each status is held steady for screenshots: no worker runs, and the failed job's retry is an hour away.
+**Rejected:** producing each status by running real jobs, which would race the worker and make the pending and
+processing rows vanish within seconds.
+
+## 19. No `export const dynamic` in route files
+
+See BUILD_LOG.md entry 5. **Rejected:** turning off `cacheComponents` in next.config.ts, which is the scaffold's
+default and not mine to change here.
+
+## 20. Timestamps mix two clocks
+
+`createdAt` and `startedAt` default to the database clock; `runAt` and `updatedAt` on failure are written by the
+worker's clock. The happy-path evidence shows them about half a second apart. **Rejected:** moving every
+timestamp into SQL `now()`, which would work but means raw SQL for updates that Prisma expresses cleanly.
+Backoff stays correct because a retry's `runAt` and the claim's `runAt <= now()` only differ by that skew.

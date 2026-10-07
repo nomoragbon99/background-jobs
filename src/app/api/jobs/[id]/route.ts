@@ -2,8 +2,6 @@ import { NextResponse } from "next/server";
 import { errorResponse, uuidSchema } from "@/lib/api";
 import { prisma } from "@/lib/db";
 
-export const dynamic = "force-dynamic";
-
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   if (!uuidSchema.safeParse(id).success) return errorResponse(400, "BAD_ID", "Job id must be a UUID.");

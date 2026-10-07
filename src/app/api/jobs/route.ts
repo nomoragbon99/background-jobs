@@ -4,8 +4,6 @@ import { errorResponse, enqueueSchema, JOB_STATUSES } from "@/lib/api";
 import { prisma } from "@/lib/db";
 import { enqueueRestaurantReport } from "@/lib/jobs";
 
-export const dynamic = "force-dynamic";
-
 /** Only writes a pending row; the worker does the work. */
 export async function POST(req: Request) {
   let body: unknown;

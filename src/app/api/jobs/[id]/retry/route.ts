@@ -3,8 +3,6 @@ import { errorResponse, uuidSchema } from "@/lib/api";
 import { prisma } from "@/lib/db";
 import { retryDeadJob } from "@/lib/jobs";
 
-export const dynamic = "force-dynamic";
-
 /** Dead jobs only. The status check is part of the UPDATE, so it is race-free. */
 export async function POST(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

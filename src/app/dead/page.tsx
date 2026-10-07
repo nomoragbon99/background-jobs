@@ -6,10 +6,18 @@ import { config } from "@/config";
 interface DeadJob {
   id: string;
   userId: string;
+  type: string;
   payload: unknown;
   attempts: number;
+  maxAttempts: number;
   lastError: string | null;
+  createdAt: string;
+  startedAt: string | null;
+  finishedAt: string | null;
+  updatedAt: string;
 }
+
+const when = (value: string | null) => (value ? new Date(value).toLocaleString() : "-");
 
 export default function DeadPage() {
   const [jobs, setJobs] = useState<DeadJob[]>([]);
@@ -49,10 +57,11 @@ export default function DeadPage() {
         <table>
           <thead>
             <tr>
-              <th>Id</th>
+              <th>Job</th>
               <th>Payload</th>
               <th>Attempts</th>
               <th>Last error</th>
+              <th>Timestamps</th>
               <th></th>
             </tr>
           </thead>
@@ -61,13 +70,21 @@ export default function DeadPage() {
               <tr key={job.id}>
                 <td>
                   <code>{job.id}</code>
-                  <div className="muted">{job.userId}</div>
+                  <div>{job.type}</div>
+                  <div className="muted">user {job.userId}</div>
                 </td>
                 <td>
-                  <pre>{JSON.stringify(job.payload)}</pre>
+                  <pre>{JSON.stringify(job.payload, null, 1)}</pre>
                 </td>
-                <td>{job.attempts}</td>
+                <td>
+                  {job.attempts}/{job.maxAttempts}
+                </td>
                 <td className="error">{job.lastError}</td>
+                <td className="muted">
+                  <div>created {when(job.createdAt)}</div>
+                  <div>last started {when(job.startedAt)}</div>
+                  <div>died {when(job.finishedAt)}</div>
+                </td>
                 <td>
                   <button onClick={() => retry(job.id)}>Retry</button>
                 </td>
@@ -75,7 +92,7 @@ export default function DeadPage() {
             ))}
             {jobs.length === 0 && (
               <tr>
-                <td colSpan={5} className="muted">
+                <td colSpan={6} className="muted">
                   No dead jobs.
                 </td>
               </tr>

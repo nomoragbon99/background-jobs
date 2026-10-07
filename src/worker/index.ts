@@ -3,16 +3,8 @@ import { randomUUID } from "node:crypto";
 import { hostname } from "node:os";
 import { config } from "@/config";
 import { prisma } from "@/lib/db";
-import {
-  RESTAURANT_REPORT,
-  claimJob,
-  completeJob,
-  failJob,
-  reportExists,
-  sweepStuckJobs,
-  type ClaimedJob,
-} from "@/lib/jobs";
-import { buildRestaurantReport } from "@/lib/restaurant-report";
+import { claimJob, sweepStuckJobs, type ClaimedJob } from "@/lib/jobs";
+import { processJob } from "@/worker/process";
 
 const workerId = `${hostname()}:${process.pid}:${randomUUID().slice(0, 8)}`;
 let active = 0;
@@ -21,39 +13,33 @@ let stopping = false;
 const log = (message: string) => console.log(`${new Date().toISOString()} [${workerId}] ${message}`);
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function runWork(job: ClaimedJob) {
-  if (job.type !== RESTAURANT_REPORT) throw new Error(`Unknown job type: ${job.type}`);
-  const restaurantId = job.payload.restaurantId;
-  if (!restaurantId) throw new Error("Payload is missing restaurantId");
-
-  // Idempotent: a report for this job may already exist from an earlier run.
-  if (await reportExists(job.id)) return { restaurantId, summary: null };
-
-  if (Math.random() < config.worker.failureInjectionRate) {
-    throw new Error("Injected failure (failureInjectionRate)");
-  }
-  const summary = await buildRestaurantReport(restaurantId);
-  return { restaurantId, summary };
-}
-
 async function handle(job: ClaimedJob) {
-  try {
-    const { restaurantId, summary } = await runWork(job);
-    const ok = await completeJob(job.id, workerId, summary ? { restaurantId, summary } : null);
-    log(`job ${job.id} ${ok ? "succeeded" : "result discarded (no longer ours)"}`);
-  } catch (err) {
-    const outcome = await failJob(job, workerId, err);
-    const message = err instanceof Error ? err.message : String(err);
+  const outcome = await processJob(job, workerId);
+  if (outcome.kind === "succeeded") {
+    log(`job ${job.id} ${outcome.applied ? "succeeded" : "result discarded (no longer ours)"}`);
+  } else {
     const next = outcome.dead ? "dead" : "retry scheduled";
-    log(`job ${job.id} failed (attempt ${outcome.attempts}/${job.maxAttempts}, ${next}): ${message}`);
+    log(`job ${job.id} failed (attempt ${outcome.attempts}/${job.maxAttempts}, ${next}): ${outcome.message}`);
   }
 }
 
 async function fill() {
   while (!stopping && active < config.worker.concurrency) {
-    const job = await claimJob(workerId);
-    if (!job) return;
+    // Reserve the slot before the await. fill() is entered from the poll loop and
+    // from every job's finish handler; checking first and incrementing after the
+    // claim let several callers pass the check at once and overshoot the cap.
     active += 1;
+    let job: ClaimedJob | null;
+    try {
+      job = await claimJob(workerId);
+    } catch (err) {
+      active -= 1;
+      throw err;
+    }
+    if (!job) {
+      active -= 1;
+      return;
+    }
     log(`job ${job.id} started, active=${active}/${config.worker.concurrency}`);
     void handle(job)
       .catch((err) => log(`job ${job.id} bookkeeping error: ${err}`))
@@ -100,6 +86,8 @@ async function shutdown() {
 process.on("SIGINT", () => void shutdown());
 process.on("SIGTERM", () => void shutdown());
 
-log(`worker started (concurrency=${config.worker.concurrency}, failureInjectionRate=${config.worker.failureInjectionRate})`);
+log(
+  `worker started (concurrency=${config.worker.concurrency}, failureInjectionRate=${config.worker.failureInjectionRate}, simulatedWorkMs=${config.worker.simulatedWorkMs})`,
+);
 void poll();
 void sweepLoop();

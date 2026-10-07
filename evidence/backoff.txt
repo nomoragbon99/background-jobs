@@ -1,0 +1,18 @@
+
+=== Test b: failure injection rate 1.0, one job from pending to dead ===
+2026-10-07T18:13:41.398Z  backoff = min(300000ms, 2000ms * 2^(attempt-1)) * jitter[0.5..1.5], maxAttempts=5
+2026-10-07T18:13:48.878Z  cleanup: removed 50 old demo job(s) and 50 report(s)
+2026-10-07T18:13:50.075Z  enqueued job 01a11792-59be-77db-a58a-4c86b2396cbf
+
+  attempt  failed at (UTC)           gap since last   next retry in   (nominal, before jitter)   status
+        1  2026-10-07T18:13:54.002Z        4.37 s         2.02 s                      2 s   failed
+        2  2026-10-07T18:13:55.918Z        1.92 s         5.43 s                      4 s   failed
+        3  2026-10-07T18:14:01.742Z        5.82 s         6.13 s                      8 s   failed
+        4  2026-10-07T18:14:07.898Z        6.16 s        23.94 s                     16 s   failed
+        5  2026-10-07T18:14:36.429Z       28.53 s             -                          -   dead
+
+=== Result ===
+2026-10-07T18:14:37.066Z  final status=dead attempts=5/5
+2026-10-07T18:14:37.066Z  lastError=Injected failure (failureInjectionRate)
+PASS: dead after exactly 5 attempts
+PASS: every scheduled delay is within its jittered exponential bounds

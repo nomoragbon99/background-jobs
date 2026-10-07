@@ -1,0 +1,162 @@
+
+=== Test a: 50 jobs at once, concurrency cap 3 (simulated work 1500 ms) ===
+2026-10-07T18:12:35.063Z  cleanup: removed 1 old demo job(s) and 1 report(s)
+2026-10-07T18:12:47.408Z  enqueued 50 jobs, all pending
+    [worker] 2026-10-07T18:12:47.829Z worker started (concurrency=3, failureInjectionRate=0, simulatedWorkMs=1500)
+    [worker] 2026-10-07T18:12:50.698Z job 01a11791-38b6-76a1-b0c5-81e6ddbe33ee started, active=1/3
+    [worker] 2026-10-07T18:12:50.966Z job 01a11791-399d-715f-8cc1-24739afbaa36 started, active=2/3
+    [worker] 2026-10-07T18:12:51.202Z job 01a11791-3a87-755e-91e7-5691b5f13900 started, active=3/3
+    [worker] 2026-10-07T18:12:53.413Z job 01a11791-38b6-76a1-b0c5-81e6ddbe33ee succeeded
+    [worker] 2026-10-07T18:12:53.413Z job 01a11791-38b6-76a1-b0c5-81e6ddbe33ee finished, active=2/3
+    [worker] 2026-10-07T18:12:53.633Z job 01a11791-399d-715f-8cc1-24739afbaa36 succeeded
+    [worker] 2026-10-07T18:12:53.633Z job 01a11791-399d-715f-8cc1-24739afbaa36 finished, active=2/3
+    [worker] 2026-10-07T18:12:53.645Z job 01a11791-3b6e-73d9-8186-cf5e316ed365 started, active=3/3
+    [worker] 2026-10-07T18:12:53.863Z job 01a11791-3c53-70f3-a7c4-0ed5b0af2be5 started, active=3/3
+    [worker] 2026-10-07T18:12:54.848Z job 01a11791-3a87-755e-91e7-5691b5f13900 succeeded
+    [worker] 2026-10-07T18:12:54.848Z job 01a11791-3a87-755e-91e7-5691b5f13900 finished, active=2/3
+    [worker] 2026-10-07T18:12:55.066Z job 01a11791-3d3e-746a-aa1a-078a71580918 started, active=3/3
+    [worker] 2026-10-07T18:12:56.250Z job 01a11791-3b6e-73d9-8186-cf5e316ed365 succeeded
+    [worker] 2026-10-07T18:12:56.250Z job 01a11791-3b6e-73d9-8186-cf5e316ed365 finished, active=2/3
+    [worker] 2026-10-07T18:12:56.465Z job 01a11791-3e26-70aa-8927-f75ec932f72a started, active=3/3
+    [worker] 2026-10-07T18:12:56.500Z job 01a11791-3c53-70f3-a7c4-0ed5b0af2be5 succeeded
+    [worker] 2026-10-07T18:12:56.500Z job 01a11791-3c53-70f3-a7c4-0ed5b0af2be5 finished, active=2/3
+    [worker] 2026-10-07T18:12:56.730Z job 01a11791-3f0b-7540-8188-a2384ed55f03 started, active=3/3
+    [worker] 2026-10-07T18:12:57.667Z job 01a11791-3d3e-746a-aa1a-078a71580918 succeeded
+    [worker] 2026-10-07T18:12:57.667Z job 01a11791-3d3e-746a-aa1a-078a71580918 finished, active=2/3
+    [worker] 2026-10-07T18:12:57.886Z job 01a11791-3ff0-76be-81d8-f8dc6cff278d started, active=3/3
+    [worker] 2026-10-07T18:12:59.060Z job 01a11791-3e26-70aa-8927-f75ec932f72a succeeded
+    [worker] 2026-10-07T18:12:59.060Z job 01a11791-3e26-70aa-8927-f75ec932f72a finished, active=2/3
+    [worker] 2026-10-07T18:12:59.276Z job 01a11791-40d7-7753-aded-77f4fbc864ce started, active=3/3
+    [worker] 2026-10-07T18:12:59.377Z job 01a11791-3f0b-7540-8188-a2384ed55f03 succeeded
+    [worker] 2026-10-07T18:12:59.377Z job 01a11791-3f0b-7540-8188-a2384ed55f03 finished, active=2/3
+    [worker] 2026-10-07T18:12:59.608Z job 01a11791-41bc-76c3-a7b5-fb3c4cbf342e started, active=3/3
+    [worker] 2026-10-07T18:13:00.470Z job 01a11791-3ff0-76be-81d8-f8dc6cff278d succeeded
+    [worker] 2026-10-07T18:13:00.470Z job 01a11791-3ff0-76be-81d8-f8dc6cff278d finished, active=2/3
+    [worker] 2026-10-07T18:13:00.685Z job 01a11791-42a3-747c-8689-8e118e2932ac started, active=3/3
+    [worker] 2026-10-07T18:13:01.855Z job 01a11791-40d7-7753-aded-77f4fbc864ce succeeded
+    [worker] 2026-10-07T18:13:01.855Z job 01a11791-40d7-7753-aded-77f4fbc864ce finished, active=2/3
+    [worker] 2026-10-07T18:13:02.071Z job 01a11791-4388-710c-abe0-5b6a64541f5c started, active=3/3
+    [worker] 2026-10-07T18:13:02.252Z job 01a11791-41bc-76c3-a7b5-fb3c4cbf342e succeeded
+    [worker] 2026-10-07T18:13:02.252Z job 01a11791-41bc-76c3-a7b5-fb3c4cbf342e finished, active=2/3
+    [worker] 2026-10-07T18:13:02.485Z job 01a11791-446e-729f-83f8-ce8f678e70fa started, active=3/3
+    [worker] 2026-10-07T18:13:03.260Z job 01a11791-42a3-747c-8689-8e118e2932ac succeeded
+    [worker] 2026-10-07T18:13:03.260Z job 01a11791-42a3-747c-8689-8e118e2932ac finished, active=2/3
+    [worker] 2026-10-07T18:13:03.476Z job 01a11791-4555-7008-b75a-61b99e96d2c0 started, active=3/3
+    [worker] 2026-10-07T18:13:04.640Z job 01a11791-4388-710c-abe0-5b6a64541f5c succeeded
+    [worker] 2026-10-07T18:13:04.640Z job 01a11791-4388-710c-abe0-5b6a64541f5c finished, active=2/3
+    [worker] 2026-10-07T18:13:04.856Z job 01a11791-463d-7337-af09-0f3265caa442 started, active=3/3
+    [worker] 2026-10-07T18:13:05.113Z job 01a11791-446e-729f-83f8-ce8f678e70fa succeeded
+    [worker] 2026-10-07T18:13:05.113Z job 01a11791-446e-729f-83f8-ce8f678e70fa finished, active=2/3
+    [worker] 2026-10-07T18:13:05.344Z job 01a11791-4726-7769-b251-40446b65e362 started, active=3/3
+    [worker] 2026-10-07T18:13:06.048Z job 01a11791-4555-7008-b75a-61b99e96d2c0 succeeded
+    [worker] 2026-10-07T18:13:06.048Z job 01a11791-4555-7008-b75a-61b99e96d2c0 finished, active=2/3
+    [worker] 2026-10-07T18:13:06.265Z job 01a11791-480c-772c-8ce5-96cdb8961777 started, active=3/3
+    [worker] 2026-10-07T18:13:07.424Z job 01a11791-463d-7337-af09-0f3265caa442 succeeded
+    [worker] 2026-10-07T18:13:07.425Z job 01a11791-463d-7337-af09-0f3265caa442 finished, active=2/3
+    [worker] 2026-10-07T18:13:07.641Z job 01a11791-48f1-717d-ac4c-eb6118d62b94 started, active=3/3
+    [worker] 2026-10-07T18:13:07.987Z job 01a11791-4726-7769-b251-40446b65e362 succeeded
+    [worker] 2026-10-07T18:13:07.987Z job 01a11791-4726-7769-b251-40446b65e362 finished, active=2/3
+    [worker] 2026-10-07T18:13:08.218Z job 01a11791-49d8-7694-b5f4-82415c054a64 started, active=3/3
+    [worker] 2026-10-07T18:13:08.840Z job 01a11791-480c-772c-8ce5-96cdb8961777 succeeded
+    [worker] 2026-10-07T18:13:08.840Z job 01a11791-480c-772c-8ce5-96cdb8961777 finished, active=2/3
+    [worker] 2026-10-07T18:13:09.056Z job 01a11791-4abd-713f-af56-d7b6d3071a04 started, active=3/3
+    [worker] 2026-10-07T18:13:10.217Z job 01a11791-48f1-717d-ac4c-eb6118d62b94 succeeded
+    [worker] 2026-10-07T18:13:10.217Z job 01a11791-48f1-717d-ac4c-eb6118d62b94 finished, active=2/3
+    [worker] 2026-10-07T18:13:10.437Z job 01a11791-4ba4-76de-b2bd-f58f2c06773c started, active=3/3
+    [worker] 2026-10-07T18:13:10.855Z job 01a11791-49d8-7694-b5f4-82415c054a64 succeeded
+    [worker] 2026-10-07T18:13:10.855Z job 01a11791-49d8-7694-b5f4-82415c054a64 finished, active=2/3
+    [worker] 2026-10-07T18:13:11.083Z job 01a11791-4c8f-777e-a470-0ab640420602 started, active=3/3
+    [worker] 2026-10-07T18:13:11.640Z job 01a11791-4abd-713f-af56-d7b6d3071a04 succeeded
+    [worker] 2026-10-07T18:13:11.640Z job 01a11791-4abd-713f-af56-d7b6d3071a04 finished, active=2/3
+    [worker] 2026-10-07T18:13:11.862Z job 01a11791-4d78-764a-a528-0ec81cb3c3f8 started, active=3/3
+    [worker] 2026-10-07T18:13:13.014Z job 01a11791-4ba4-76de-b2bd-f58f2c06773c succeeded
+    [worker] 2026-10-07T18:13:13.014Z job 01a11791-4ba4-76de-b2bd-f58f2c06773c finished, active=2/3
+    [worker] 2026-10-07T18:13:13.230Z job 01a11791-4e61-70e6-915f-4fca63fd5962 started, active=3/3
+    [worker] 2026-10-07T18:13:13.733Z job 01a11791-4c8f-777e-a470-0ab640420602 succeeded
+    [worker] 2026-10-07T18:13:13.733Z job 01a11791-4c8f-777e-a470-0ab640420602 finished, active=2/3
+    [worker] 2026-10-07T18:13:13.968Z job 01a11791-4f4b-763a-bfd3-f8032f867996 started, active=3/3
+    [worker] 2026-10-07T18:13:14.430Z job 01a11791-4d78-764a-a528-0ec81cb3c3f8 succeeded
+    [worker] 2026-10-07T18:13:14.430Z job 01a11791-4d78-764a-a528-0ec81cb3c3f8 finished, active=2/3
+    [worker] 2026-10-07T18:13:14.645Z job 01a11791-5036-74f8-89b4-85f1a311fe9e started, active=3/3
+    [worker] 2026-10-07T18:13:15.810Z job 01a11791-4e61-70e6-915f-4fca63fd5962 succeeded
+    [worker] 2026-10-07T18:13:15.810Z job 01a11791-4e61-70e6-915f-4fca63fd5962 finished, active=2/3
+    [worker] 2026-10-07T18:13:16.025Z job 01a11791-5121-712e-849c-b54a29130c07 started, active=3/3
+    [worker] 2026-10-07T18:13:16.617Z job 01a11791-4f4b-763a-bfd3-f8032f867996 succeeded
+    [worker] 2026-10-07T18:13:16.617Z job 01a11791-4f4b-763a-bfd3-f8032f867996 finished, active=2/3
+    [worker] 2026-10-07T18:13:16.848Z job 01a11791-5207-77bc-ad9d-61c882258695 started, active=3/3
+    [worker] 2026-10-07T18:13:17.215Z job 01a11791-5036-74f8-89b4-85f1a311fe9e succeeded
+    [worker] 2026-10-07T18:13:17.215Z job 01a11791-5036-74f8-89b4-85f1a311fe9e finished, active=2/3
+    [worker] 2026-10-07T18:13:17.430Z job 01a11791-52ec-74fe-84ce-cc6677affe27 started, active=3/3
+    [worker] 2026-10-07T18:13:18.599Z job 01a11791-5121-712e-849c-b54a29130c07 succeeded
+    [worker] 2026-10-07T18:13:18.599Z job 01a11791-5121-712e-849c-b54a29130c07 finished, active=2/3
+    [worker] 2026-10-07T18:13:18.815Z job 01a11791-53d2-7188-8db1-f07b3e17305e started, active=3/3
+    [worker] 2026-10-07T18:13:19.487Z job 01a11791-5207-77bc-ad9d-61c882258695 succeeded
+    [worker] 2026-10-07T18:13:19.487Z job 01a11791-5207-77bc-ad9d-61c882258695 finished, active=2/3
+    [worker] 2026-10-07T18:13:19.728Z job 01a11791-54b8-76dc-aba5-d40acb9e8043 started, active=3/3
+    [worker] 2026-10-07T18:13:20.010Z job 01a11791-52ec-74fe-84ce-cc6677affe27 succeeded
+    [worker] 2026-10-07T18:13:20.011Z job 01a11791-52ec-74fe-84ce-cc6677affe27 finished, active=2/3
+    [worker] 2026-10-07T18:13:20.225Z job 01a11791-559e-76d8-b3ff-e897b4067fba started, active=3/3
+    [worker] 2026-10-07T18:13:21.390Z job 01a11791-53d2-7188-8db1-f07b3e17305e succeeded
+    [worker] 2026-10-07T18:13:21.390Z job 01a11791-53d2-7188-8db1-f07b3e17305e finished, active=2/3
+    [worker] 2026-10-07T18:13:21.605Z job 01a11791-568d-7434-b188-fefa85b0d564 started, active=3/3
+    [worker] 2026-10-07T18:13:22.363Z job 01a11791-54b8-76dc-aba5-d40acb9e8043 succeeded
+    [worker] 2026-10-07T18:13:22.363Z job 01a11791-54b8-76dc-aba5-d40acb9e8043 finished, active=2/3
+    [worker] 2026-10-07T18:13:22.593Z job 01a11791-5774-73bc-ad21-2c33d6293efc started, active=3/3
+    [worker] 2026-10-07T18:13:22.800Z job 01a11791-559e-76d8-b3ff-e897b4067fba succeeded
+    [worker] 2026-10-07T18:13:22.800Z job 01a11791-559e-76d8-b3ff-e897b4067fba finished, active=2/3
+    [worker] 2026-10-07T18:13:23.016Z job 01a11791-585b-74dc-b89a-0985b065eda0 started, active=3/3
+    [worker] 2026-10-07T18:13:24.195Z job 01a11791-568d-7434-b188-fefa85b0d564 succeeded
+    [worker] 2026-10-07T18:13:24.195Z job 01a11791-568d-7434-b188-fefa85b0d564 finished, active=2/3
+    [worker] 2026-10-07T18:13:24.412Z job 01a11791-5941-7454-9936-562456bf682e started, active=3/3
+    [worker] 2026-10-07T18:13:25.223Z job 01a11791-5774-73bc-ad21-2c33d6293efc succeeded
+    [worker] 2026-10-07T18:13:25.223Z job 01a11791-5774-73bc-ad21-2c33d6293efc finished, active=2/3
+    [worker] 2026-10-07T18:13:25.454Z job 01a11791-5a28-77d7-b4e3-2b9f522026aa started, active=3/3
+    [worker] 2026-10-07T18:13:25.595Z job 01a11791-585b-74dc-b89a-0985b065eda0 succeeded
+    [worker] 2026-10-07T18:13:25.595Z job 01a11791-585b-74dc-b89a-0985b065eda0 finished, active=2/3
+    [worker] 2026-10-07T18:13:25.810Z job 01a11791-5b0c-713f-ae7b-0f2839d89813 started, active=3/3
+    [worker] 2026-10-07T18:13:26.995Z job 01a11791-5941-7454-9936-562456bf682e succeeded
+    [worker] 2026-10-07T18:13:26.995Z job 01a11791-5941-7454-9936-562456bf682e finished, active=2/3
+    [worker] 2026-10-07T18:13:27.216Z job 01a11791-5c01-7434-aee6-5151273896ed started, active=3/3
+    [worker] 2026-10-07T18:13:28.102Z job 01a11791-5a28-77d7-b4e3-2b9f522026aa succeeded
+    [worker] 2026-10-07T18:13:28.103Z job 01a11791-5a28-77d7-b4e3-2b9f522026aa finished, active=2/3
+    [worker] 2026-10-07T18:13:28.335Z job 01a11791-5d07-749f-80f8-b4c2c8baa846 started, active=3/3
+    [worker] 2026-10-07T18:13:28.391Z job 01a11791-5b0c-713f-ae7b-0f2839d89813 succeeded
+    [worker] 2026-10-07T18:13:28.391Z job 01a11791-5b0c-713f-ae7b-0f2839d89813 finished, active=2/3
+    [worker] 2026-10-07T18:13:28.611Z job 01a11791-5deb-7553-a13f-d2416c7b3db6 started, active=3/3
+    [worker] 2026-10-07T18:13:29.799Z job 01a11791-5c01-7434-aee6-5151273896ed succeeded
+    [worker] 2026-10-07T18:13:29.800Z job 01a11791-5c01-7434-aee6-5151273896ed finished, active=2/3
+    [worker] 2026-10-07T18:13:30.016Z job 01a11791-5eed-7215-90e8-f40224e85436 started, active=3/3
+    [worker] 2026-10-07T18:13:30.993Z job 01a11791-5d07-749f-80f8-b4c2c8baa846 succeeded
+    [worker] 2026-10-07T18:13:30.993Z job 01a11791-5d07-749f-80f8-b4c2c8baa846 finished, active=2/3
+    [worker] 2026-10-07T18:13:31.190Z job 01a11791-5deb-7553-a13f-d2416c7b3db6 succeeded
+    [worker] 2026-10-07T18:13:31.190Z job 01a11791-5deb-7553-a13f-d2416c7b3db6 finished, active=2/3
+    [worker] 2026-10-07T18:13:31.223Z job 01a11791-6000-765a-9e5b-acb0d4bf02dc started, active=3/3
+    [worker] 2026-10-07T18:13:31.406Z job 01a11791-60e9-76f9-8022-504d76464308 started, active=3/3
+    [worker] 2026-10-07T18:13:32.596Z job 01a11791-5eed-7215-90e8-f40224e85436 succeeded
+    [worker] 2026-10-07T18:13:32.596Z job 01a11791-5eed-7215-90e8-f40224e85436 finished, active=2/3
+    [worker] 2026-10-07T18:13:32.817Z job 01a11791-61f6-7112-a85f-84c46f61b37b started, active=3/3
+    [worker] 2026-10-07T18:13:33.868Z job 01a11791-6000-765a-9e5b-acb0d4bf02dc succeeded
+    [worker] 2026-10-07T18:13:33.869Z job 01a11791-6000-765a-9e5b-acb0d4bf02dc finished, active=2/3
+    [worker] 2026-10-07T18:13:33.985Z job 01a11791-60e9-76f9-8022-504d76464308 succeeded
+    [worker] 2026-10-07T18:13:33.985Z job 01a11791-60e9-76f9-8022-504d76464308 finished, active=2/3
+    [worker] 2026-10-07T18:13:34.100Z job 01a11791-62f7-72af-9250-bec0b6028c7a started, active=3/3
+    [worker] 2026-10-07T18:13:34.200Z job 01a11791-63dc-7068-b1e6-c6f51f245d25 started, active=3/3
+    [worker] 2026-10-07T18:13:35.405Z job 01a11791-61f6-7112-a85f-84c46f61b37b succeeded
+    [worker] 2026-10-07T18:13:35.405Z job 01a11791-61f6-7112-a85f-84c46f61b37b finished, active=2/3
+    [worker] 2026-10-07T18:13:35.622Z job 01a11791-64c1-75bc-9f0e-ae5dc3f27702 started, active=3/3
+    [worker] 2026-10-07T18:13:36.690Z job 01a11791-62f7-72af-9250-bec0b6028c7a succeeded
+    [worker] 2026-10-07T18:13:36.690Z job 01a11791-62f7-72af-9250-bec0b6028c7a finished, active=2/3
+    [worker] 2026-10-07T18:13:36.830Z job 01a11791-63dc-7068-b1e6-c6f51f245d25 succeeded
+    [worker] 2026-10-07T18:13:36.830Z job 01a11791-63dc-7068-b1e6-c6f51f245d25 finished, active=2/3
+    [worker] 2026-10-07T18:13:36.911Z job 01a11791-65a7-771b-b24d-5ea05b5b62b1 started, active=3/3
+    [worker] 2026-10-07T18:13:38.271Z job 01a11791-64c1-75bc-9f0e-ae5dc3f27702 succeeded
+    [worker] 2026-10-07T18:13:38.272Z job 01a11791-64c1-75bc-9f0e-ae5dc3f27702 finished, active=2/3
+    [worker] 2026-10-07T18:13:39.496Z job 01a11791-65a7-771b-b24d-5ea05b5b62b1 succeeded
+    [worker] 2026-10-07T18:13:39.496Z job 01a11791-65a7-771b-b24d-5ea05b5b62b1 finished, active=1/3
+
+=== Result ===
+2026-10-07T18:13:40.283Z  highest active count in the worker log:        3
+2026-10-07T18:13:40.283Z  highest rows in "processing" (DB, every 50ms): 3
+2026-10-07T18:13:40.283Z  configured cap:                                3
+PASS: concurrency never exceeded 3
+PASS: the cap was actually reached (not just trivially under it)

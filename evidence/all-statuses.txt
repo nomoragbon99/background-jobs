@@ -1,0 +1,9 @@
+
+=== Seeding one job per status ===
+2026-10-07T18:16:05.590Z  cleanup: removed 5 old demo job(s) and 1 report(s)
+2026-10-07T18:16:07.801Z  pending    1
+2026-10-07T18:16:07.801Z  processing 1
+2026-10-07T18:16:07.801Z  succeeded  1
+2026-10-07T18:16:07.802Z  failed     1
+2026-10-07T18:16:07.802Z  dead       1
+2026-10-07T18:16:07.802Z  done. open http://localhost:3000/jobs and http://localhost:3000/dead

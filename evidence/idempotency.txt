@@ -1,0 +1,13 @@
+
+=== Test d: idempotency key, sequential then simultaneous ===
+2026-10-07T18:09:25.107Z  cleanup: removed 1 old demo job(s) and 1 report(s)
+2026-10-07T18:09:27.017Z  sequential #1: HTTP 202 id=01a1178e-52be-73ae-9d8f-7fac8f614931 created=true
+2026-10-07T18:09:28.384Z  sequential #2: HTTP 202 id=01a1178e-52be-73ae-9d8f-7fac8f614931 created=false
+2026-10-07T18:09:28.612Z  rows with key "demo-idem-sequential": 1
+2026-10-07T18:09:28.612Z  firing 25 simultaneous POSTs with key "demo-idem-simultaneous"
+2026-10-07T18:09:32.994Z  HTTP statuses: 202  distinct ids returned: 1  responses that created the row: 1
+2026-10-07T18:09:33.217Z  rows with key "demo-idem-simultaneous": 1
+
+=== Result ===
+PASS: sequential: second call returned the first job, one row
+PASS: simultaneous: 25 calls, one row, one creator

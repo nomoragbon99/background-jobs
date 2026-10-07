@@ -1,0 +1,48 @@
+
+=== Happy path: enqueue over HTTP, the worker does the work ===
+2026-10-07T18:09:01.642Z  cleanup: removed 0 old demo job(s) and 0 report(s)
+2026-10-07T18:09:02.495Z  POST /api/jobs -> HTTP 202 in 276 ms (returned before any work), job 01a1178d-f730-727f-b575-82a60b864f5d
+    [worker] 2026-10-07T18:09:02.732Z worker started (concurrency=3, failureInjectionRate=0, simulatedWorkMs=0)
+    [worker] 2026-10-07T18:09:06.088Z job 01a1178d-f730-727f-b575-82a60b864f5d started, active=1/3
+    [worker] 2026-10-07T18:09:08.171Z job 01a1178d-f730-727f-b575-82a60b864f5d succeeded
+    [worker] 2026-10-07T18:09:08.171Z job 01a1178d-f730-727f-b575-82a60b864f5d finished, active=0/3
+2026-10-07T18:09:09.853Z  GET /api/jobs/01a1178d-f730-727f-b575-82a60b864f5d -> HTTP 200
+{
+  "id": "01a1178d-f730-727f-b575-82a60b864f5d",
+  "userId": "demo-user",
+  "type": "restaurant_report",
+  "payload": {
+    "restaurantId": "3a0e8ad1-817a-4754-b803-0e21146a2cba"
+  },
+  "status": "succeeded",
+  "attempts": 0,
+  "maxAttempts": 5,
+  "lastError": null,
+  "runAt": "2026-10-07T18:09:02.256Z",
+  "startedAt": "2026-10-07T18:09:06.533Z",
+  "finishedAt": "2026-10-07T18:09:07.474Z",
+  "lockedBy": null,
+  "idempotencyKey": "demo-happy-path",
+  "createdAt": "2026-10-07T18:09:02.256Z",
+  "updatedAt": "2026-10-07T18:09:07.482Z",
+  "report": {
+    "id": "01a1178e-0c82-75ea-a587-06b7ff247d68",
+    "jobId": "01a1178d-f730-727f-b575-82a60b864f5d",
+    "restaurantId": "3a0e8ad1-817a-4754-b803-0e21146a2cba",
+    "summary": {
+      "pages": 1,
+      "orderCount": 3,
+      "revenueMinor": 10501400,
+      "countsByStatus": {
+        "delivered": 3
+      },
+      "restaurantName": "Ryan LLC Kitchen"
+    },
+    "createdAt": "2026-10-07T18:09:07.714Z"
+  }
+}
+
+=== Result ===
+PASS: orderCount 3 equals the live API's meta.total 3
+PASS: per-status counts add up to the order count
+PASS: repeating the idempotency key returns the same job

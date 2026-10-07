@@ -1,0 +1,12 @@
+
+=== Test e: two workers, 50 jobs (simulated work 500 ms) ===
+2026-10-07T18:14:47.134Z  cleanup: removed 1 old demo job(s) and 0 report(s)
+2026-10-07T18:14:58.706Z  enqueued 50 jobs
+
+=== Result ===
+2026-10-07T18:15:20.400Z  claims by worker-1: 24   by worker-2: 26   total: 50
+2026-10-07T18:15:20.400Z  jobs claimed more than once: 0   jobs never claimed: 0
+2026-10-07T18:15:20.401Z  succeeded jobs: 50   reports: 50
+PASS: every job was claimed by exactly one worker
+PASS: both workers did real work
+PASS: number of reports equals number of succeeded jobs

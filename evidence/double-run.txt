@@ -1,0 +1,22 @@
+
+=== Test f: the work runs twice for one job id ===
+2026-10-07T18:09:36.140Z  cleanup: removed 2 old demo job(s) and 0 report(s)
+2026-10-07T18:09:38.488Z  run 1: claimed 01a1178e-7db4-731d-9a3c-c61637c544cc as demo-worker-A -> {"kind":"succeeded","applied":true}
+2026-10-07T18:09:38.943Z  after run 1
+    status=succeeded  attempts=0/5  reports=1
+    lockedBy=null
+    startedAt=2026-10-07T18:09:37.583Z  finishedAt=2026-10-07T18:09:37.813Z
+    lastError=null
+2026-10-07T18:09:39.176Z  job put back to pending to force a second run
+2026-10-07T18:09:40.295Z  run 2: claimed 01a1178e-7db4-731d-9a3c-c61637c544cc as demo-worker-B -> {"kind":"succeeded","applied":true}
+2026-10-07T18:09:40.752Z  after run 2
+    status=succeeded  attempts=0/5  reports=1
+    lockedBy=null
+    startedAt=2026-10-07T18:09:39.843Z  finishedAt=2026-10-07T18:09:39.847Z
+    lastError=null
+2026-10-07T18:09:41.007Z  direct second insert refused by the database: Prisma error P2002 (unique constraint on jobId)
+
+=== Result ===
+2026-10-07T18:09:42.163Z  reports for job 01a1178e-7db4-731d-9a3c-c61637c544cc: 1
+PASS: exactly one report after two runs
+PASS: the unique constraint rejects a second report

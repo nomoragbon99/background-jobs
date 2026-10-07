@@ -1,0 +1,32 @@
+
+=== Test c: stuck job (worker killed mid-job), stuck timeout 8 s, sweep every 2 s ===
+2026-10-07T18:15:25.373Z  cleanup: removed 50 old demo job(s) and 50 report(s)
+    [worker-1] 2026-10-07T18:15:26.706Z worker started (concurrency=3, failureInjectionRate=0, simulatedWorkMs=60000)
+    [worker-1] 2026-10-07T18:15:28.109Z job 01a11793-d244-76cc-b909-b8823a2ef738 started, active=1/3
+2026-10-07T18:15:28.967Z  1. BEFORE KILL: the slow job is processing
+    status=processing  attempts=0/5  reports=0
+    lockedBy=DESKTOP-CN7GFS9:21800:b850605c
+    startedAt=2026-10-07T18:15:28.509Z  finishedAt=null
+    lastError=null
+2026-10-07T18:15:28.967Z  killing worker-1 (SIGKILL, no graceful shutdown)
+2026-10-07T18:15:29.471Z  2. AFTER KILL: nothing is working on it, but it is still marked processing
+    status=processing  attempts=0/5  reports=0
+    lockedBy=DESKTOP-CN7GFS9:21800:b850605c
+    startedAt=2026-10-07T18:15:28.509Z  finishedAt=null
+    lastError=null
+2026-10-07T18:15:29.471Z  starting worker-2; the sweeper should return the job to pending once it has been processing > 8 s
+    [worker-2] 2026-10-07T18:15:29.823Z worker started (concurrency=3, failureInjectionRate=0, simulatedWorkMs=1000)
+    [worker-2] 2026-10-07T18:15:37.902Z swept stuck job 01a11793-d244-76cc-b909-b8823a2ef738 -> pending (attempts=1)
+    [worker-2] 2026-10-07T18:15:38.175Z job 01a11793-d244-76cc-b909-b8823a2ef738 started, active=1/3
+    [worker-2] 2026-10-07T18:15:40.372Z job 01a11793-d244-76cc-b909-b8823a2ef738 succeeded
+    [worker-2] 2026-10-07T18:15:40.373Z job 01a11793-d244-76cc-b909-b8823a2ef738 finished, active=1/3
+2026-10-07T18:15:41.176Z  3. RECOVERED: swept back to pending, claimed by worker-2, completed
+    status=succeeded  attempts=1/5  reports=1
+    lockedBy=null
+    startedAt=2026-10-07T18:15:38.617Z  finishedAt=2026-10-07T18:15:39.676Z
+    lastError=Swept: stuck in processing past the timeout
+
+=== Result ===
+PASS: worker-2's log shows the sweep
+PASS: succeeded, with the sweep counted as one attempt
+PASS: exactly one report

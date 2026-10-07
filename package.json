@@ -1,44 +1,52 @@
 {
-    "name":  "background-jobs",
-    "version":  "0.1.0",
-    "private":  true,
-    "scripts":  {
-                    "dev":  "next dev",
-                    "start":  "next start",
-                    "lint":  "eslint",
-                    "build":  "prisma generate \u0026\u0026 next build",
-                    "typecheck":  "tsc --noEmit",
-                    "postinstall":  "prisma generate",
-                    "db:migrate:dev":  "node scripts/with-resolved-db.mjs prisma migrate dev",
-                    "worker":  "tsx src/worker/index.ts",
-                    "db:migrate":  "node scripts/with-resolved-db.mjs prisma migrate deploy"
-                },
-    "dependencies":  {
-                         "@prisma/adapter-pg":  "7.10.0",
-                         "@prisma/client":  "7.10.0",
-                         "next":  "16.4.0",
-                         "pg":  "^8.23.1",
-                         "prisma":  "7.10.0",
-                         "react":  "19.3.0",
-                         "react-dom":  "19.3.0",
-                         "zod":  "^4.6.5"
-                     },
-    "devDependencies":  {
-                            "@types/node":  "^20",
-                            "@types/pg":  "^8.23.1",
-                            "@types/react":  "^19",
-                            "@types/react-dom":  "^19",
-                            "dotenv":  "^18.0.6",
-                            "eslint":  "^9",
-                            "eslint-config-next":  "16.4.0",
-                            "tsx":  "^4.23.15",
-                            "typescript":  "^5"
-                        },
-    "allowScripts":  {
-                         "@prisma/engines@7.10.0":  true,
-                         "prisma@7.10.0":  true
-                     },
-    "engines":  {
-                    "node":  "\u003e=22.0.0"
-                }
+  "name": "background-jobs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "eslint",
+    "build": "prisma generate && next build",
+    "typecheck": "tsc --noEmit",
+    "postinstall": "prisma generate",
+    "db:migrate:dev": "node scripts/with-resolved-db.mjs prisma migrate dev",
+    "worker": "tsx src/worker/index.ts",
+    "db:migrate": "node scripts/with-resolved-db.mjs prisma migrate deploy",
+    "demo:happy-path": "tsx scripts/demo/happy-path.ts",
+    "demo:concurrency": "tsx scripts/demo/concurrency.ts",
+    "demo:backoff": "tsx scripts/demo/backoff.ts",
+    "demo:stuck": "tsx scripts/demo/stuck.ts",
+    "demo:idempotency": "tsx scripts/demo/idempotency.ts",
+    "demo:two-workers": "tsx scripts/demo/two-workers.ts",
+    "demo:double-run": "tsx scripts/demo/double-run.ts",
+    "demo:all-statuses": "tsx scripts/demo/all-statuses.ts"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
+    "next": "16.4.0",
+    "pg": "^8.23.1",
+    "prisma": "7.10.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "dotenv": "^18.0.6",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5"
+  },
+  "allowScripts": {
+    "@prisma/engines@7.10.0": true,
+    "prisma@7.10.0": true
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
 }

@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum JobStatus {
+  pending
+  processing
+  succeeded
+  failed
+  dead
+}
+
+model Job {
+  id             String    @id @default(uuid(7)) @db.Uuid
+  userId         String
+  type           String
+  payload        Json
+  status         JobStatus @default(pending)
+  attempts       Int       @default(0)
+  maxAttempts    Int
+  lastError      String?
+  runAt          DateTime  @default(now())
+  startedAt      DateTime?
+  finishedAt     DateTime?
+  lockedBy       String?
+  idempotencyKey String    @unique
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  report         Report?
+
+  // Claim query: WHERE status IN (pending, failed) AND runAt <= now() ORDER BY runAt.
+  @@index([status, runAt])
+  // Views: list by status, newest first.
+  @@index([status, createdAt])
+  @@map("jobs")
+}
+
+model Report {
+  id           String   @id @default(uuid(7)) @db.Uuid
+  jobId        String   @unique @db.Uuid
+  restaurantId String
+  summary      Json
+  createdAt    DateTime @default(now())
+  job          Job      @relation(fields: [jobId], references: [id])
+
+  @@map("reports")
+}

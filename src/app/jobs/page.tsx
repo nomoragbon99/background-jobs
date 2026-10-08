@@ -95,7 +95,7 @@ export default function JobsPage() {
               <tr key={job.id}>
                 <td>
                   <a href={`/api/jobs/${job.id}`}>
-                    <code>{job.id.slice(0, 8)}</code>
+                    <code>{job.id.slice(-8)}</code>
                   </a>
                 </td>
                 <td>{job.userId}</td>

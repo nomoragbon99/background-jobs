@@ -103,6 +103,8 @@ All statuses on `/jobs`:
 
 ![/jobs showing pending, processing, succeeded, failed and dead jobs](evidence/screenshots/jobs-all-statuses.png)
 
+Rows created by npm run demo:all-statuses; the natural lifecycle is shown by the backoff and stuck-job tests.
+
 Backoff timestamps from `npm run demo:backoff`:
 
 ![Backoff: each attempt's time and the growing gap](evidence/screenshots/backoff-timestamps.png)

@@ -116,3 +116,8 @@ default and not mine to change here.
 worker's clock. The happy-path evidence shows them about half a second apart. **Rejected:** moving every
 timestamp into SQL `now()`, which would work but means raw SQL for updates that Prisma expresses cleanly.
 Backoff stays correct because a retry's `runAt` and the claim's `runAt <= now()` only differ by that skew.
+
+## 21. Health check queries `SELECT 1` via `prisma.$queryRaw`
+
+Pings PostgreSQL using `SELECT 1` without touching tables or mutating state. Returns 200 with `{ data: { status: "healthy", timestamp } }`, or 503 if unreachable. **Rejected:** querying an application table like `prisma.job.findFirst()` (unnecessary table scan and coupling to schema) or `prisma.$connect()` alone (does not verify an active query round-trip).
+

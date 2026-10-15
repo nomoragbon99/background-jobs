@@ -1,5 +1,7 @@
+import pg from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/prisma/client";
+import { config } from "@/config";
 
 // Prisma 7 connects through a driver adapter. Cached on globalThis so Next.js
 // hot reloads reuse one pool.
@@ -10,7 +12,11 @@ function createPrismaClient(): PrismaClient {
   if (!connectionString) {
     throw new Error("DATABASE_URL is not set. Copy .env.example to .env and fill it in.");
   }
-  return new PrismaClient({ adapter: new PrismaPg({ connectionString }) });
+  const pool = new pg.Pool({
+    connectionString,
+    connectionTimeoutMillis: config.DB_HEALTH_CHECK_TIMEOUT_MS,
+  });
+  return new PrismaClient({ adapter: new PrismaPg(pool) });
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient();

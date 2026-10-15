@@ -121,3 +121,8 @@ Backoff stays correct because a retry's `runAt` and the claim's `runAt <= now()`
 
 Pings PostgreSQL using `SELECT 1` without touching tables or mutating state. Returns 200 with `{ data: { status: "healthy", timestamp } }`, or 503 if unreachable. **Rejected:** querying an application table like `prisma.job.findFirst()` (unnecessary table scan and coupling to schema) or `prisma.$connect()` alone (does not verify an active query round-trip).
 
+## 22. Bounded database health check timeout and readiness semantics
+
+The `/api/health` route wraps the database query in a timeout promise bounded by `config.DB_HEALTH_CHECK_TIMEOUT_MS` (5,000ms), and `src/lib/db.ts` configures `pg.Pool` with `connectionTimeoutMillis: config.DB_HEALTH_CHECK_TIMEOUT_MS`. The endpoint functions as a readiness check (validating downstream database connectivity) rather than an isolated process liveness check. **Rejected:** unbounded database queries that could hang HTTP connections indefinitely during database hangs or network partitions, and treating health check as a pure process liveness probe without verifying dependent data store connectivity.
+
+

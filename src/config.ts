@@ -6,6 +6,8 @@ const defaults = {
   ordersPageSize: 100,
   /** Per-request timeout for the live API, in ms. */
   apiTimeoutMs: 30_000,
+  /** Database health check and connection timeout, in ms. */
+  DB_HEALTH_CHECK_TIMEOUT_MS: 5_000,
 
   jobs: {
     /** Copied onto each job row at creation. */
@@ -59,9 +61,13 @@ function applyOverrides(base: Defaults): Defaults {
           (target as Record<string, unknown>)[key] = value;
         }
       }
+    } else if (typeof target === "number" && typeof values === "number") {
+      result[section] = values;
     }
   }
   return result as Defaults;
 }
 
 export const config = applyOverrides(defaults);
+export const DB_HEALTH_CHECK_TIMEOUT_MS = config.DB_HEALTH_CHECK_TIMEOUT_MS;
+
